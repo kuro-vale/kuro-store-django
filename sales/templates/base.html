@@ -1,0 +1,18 @@
+{% load bootstrap4 %}
+{% load static %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{% block head %}
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <title>Kuro Store</title>
+{% endblock %}
+
+{% block body %}
+    {% block navbar %}
+        {% include 'navbar.html' %}
+    {% endblock %}
+
+    {% block content %}{% endblock %}
+{% endblock %}
