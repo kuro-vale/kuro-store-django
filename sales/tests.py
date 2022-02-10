@@ -2,17 +2,17 @@
 from django.test import TestCase
 from django.urls import reverse
 # App
-from sales.models import Store, Buyer, Item
+from sales.models import Buyer, Item, Owner
 
 
 # Model Tests
 
 class ItemModelTests(TestCase):
     def test_item_have_1_store_and_multiple_buyers(self):
-        store = Store()
-        store.save()
-        store.item_set.create(image='ht')
-        item = store.item_set.get(pk=1)
+        owner = Owner()
+        owner.save()
+        store = owner.store_set.create()
+        item = store.item_set.create()
         buyer1 = Buyer()
         buyer1.save()
         buyer2 = Buyer()
