@@ -30,3 +30,11 @@ class HomeViewsTests(TestCase):
         response = self.client.get(reverse('sales:index'))
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, '/home/')
+
+    def test_root_items_got_render_in_home(self):
+        owner = Owner()
+        owner.save()
+        store = owner.store_set.create()
+        item = store.item_set.create(name='Test Django')
+        response = self.client.get(reverse('sales:home'))
+        self.assertContains(response, item.name)
