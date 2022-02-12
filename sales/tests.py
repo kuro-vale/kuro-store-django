@@ -1,15 +1,16 @@
 # Django
+from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 # App
-from sales.models import Buyer, Item, Owner
+from sales.models import Buyer, Item
 
 
 # Model Tests
 
 class ItemModelTests(TestCase):
     def test_item_have_1_store_and_multiple_buyers(self):
-        owner = Owner()
+        owner = User()
         owner.save()
         store = owner.store_set.create()
         item = store.item_set.create()
@@ -32,7 +33,7 @@ class HomeViewsTests(TestCase):
         self.assertEqual(response.url, '/home/')
 
     def test_root_items_got_render_in_home(self):
-        owner = Owner()
+        owner = User()
         owner.save()
         store = owner.store_set.create()
         item = store.item_set.create(name='Test Django')
