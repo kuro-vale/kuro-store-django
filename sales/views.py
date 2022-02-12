@@ -1,7 +1,7 @@
 # Django
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 # App
 from sales.models import Store, Item, Buyer
@@ -16,18 +16,19 @@ def index(request):
 
 def home(request):
     root_store = Store.objects.get(pk=1)
-    # Items have to go in pairs to render blocks of (Black, White) (White, Black)...
     root_items = _get_pair_items(root_store.id)
     return render(request, 'sales/home.html', {'pair_items': root_items, 'store': root_store})
 
 
+# Buy views
+
 def checkout(request, item_id):
-    item = Item.objects.get(pk=item_id)
+    item = get_object_or_404(Item, pk=item_id)
     return render(request, 'sales/checkout.html', {'item': item})
 
 
 def buy(request, item_id):
-    item = Item.objects.get(pk=item_id)
+    item = get_object_or_404(Item, pk=item_id)
     try:
         buyer = Buyer.objects.get(username=request.POST['username'])
     except Buyer.DoesNotExist:
@@ -42,9 +43,22 @@ def buy(request, item_id):
         return HttpResponseRedirect(reverse('sales:home'))
 
 
+# Dashboard views
+
+def latest_purchases(request):
+    buyers = Buyer.objects.all()
+    return render(request, 'sales/dashboards/latest.html', {'buyers': buyers})
+
+
+def buyer_purchases(request, buyer_id):
+    buyer = get_object_or_404(Buyer, pk=buyer_id)
+    return render(request, 'sales/dashboards/buyer.html', {'buyer': buyer})
+
+
 # Private Methods
 
 def _get_pair_items(store_pk):
+    """Items have to go in pairs to render blocks of (Black, White) (White, Black)...and so"""
     store = Store.objects.get(pk=store_pk)
     pair_items = []
     for item in store.item_set.all():

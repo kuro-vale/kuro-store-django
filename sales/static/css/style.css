@@ -86,3 +86,7 @@ img {
     height: 100%;
     color: red;
 }
+.link-dark {
+    color: #212529;
+    text-decoration: underline;
+}

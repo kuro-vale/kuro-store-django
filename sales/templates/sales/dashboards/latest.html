@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Latest Purchases</h2>
+          <div class="table-responsive">
+            <table class="table table-striped table-sm">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Buyer</th>
+                  <th>Item</th>
+                  <th>Price</th>
+                  <th>Store</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for buyer in buyers %}
+                {% for item in buyer.item_set.all reversed %}
+                    <tr>
+                      <td>{{ forloop.revcounter }}</td>
+                      <td><a href="{% url 'sales:buyer_purchases' buyer.id %}" class="link-dark">{{ buyer.username }}</a></td>
+                      <td>{{ item.name }}</td>
+                      <td>${{ item.price }}</td>
+                      <td><a href="#" class="link-dark">{{ item.store_id.name }}</a> </td>
+                    </tr>
+                {% endfor %}
+              {% endfor %}
+              </tbody>
+            </table>
+</div>
+{% endblock %}
