@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <link href="{% static 'sales/css/base.css' %}" rel="stylesheet">
+    <link href="{% static 'owners/css/login.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<br><br><br><br>
+<form class="form-signin" action="{% url 'auth:login_owner' %}" method="post">
+      {% csrf_token %}
+      <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+      <label for="inputUsername" class="sr-only">Username</label>
+      <input type="text" id="inputUsername" class="form-control" placeholder="Username" name="username" required autofocus>
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
+</form>
+{% endblock %}

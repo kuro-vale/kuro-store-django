@@ -5,8 +5,8 @@
 {% bootstrap_javascript jquery='full' %}
 
 {% block head %}
-    <link rel="icon" href="{% static 'images/favicon.ico' %}">
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link rel="icon" href="{% static 'sales/images/favicon.ico' %}">
+    <link href="{% static 'sales/css/base.css' %}" rel="stylesheet">
     <title>Kuro Store</title>
 {% endblock %}
 
@@ -16,7 +16,7 @@
     {% endblock %}
     {% if messages %}
       {% for msg in messages %}
-        <div class="alert alert-info alert-dismissable">
+        <div class="alert alert-{{ msg.tags }} alert-dismissable">
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
           {{msg.message}}
         </div>

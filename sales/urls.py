@@ -1,5 +1,6 @@
+# Django
 from django.urls import path
-
+# App
 from sales import views
 
 app_name = 'sales'

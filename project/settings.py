@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Local Apps
     'sales',
+    'owners',
     # Third Party Apps
     'bootstrap4',
 ]
