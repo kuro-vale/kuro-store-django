@@ -69,8 +69,9 @@ def create_store(request):
     return render(request, 'sales/create_store.html')
 
 
-def view_store(request):
-    pass
+def view_stores(request):
+    stores = Store.objects.filter(pk__gt=1)
+    return render(request, 'sales/stores.html', {'stores': stores})
 
 
 # Private Methods

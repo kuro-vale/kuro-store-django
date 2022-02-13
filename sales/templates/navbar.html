@@ -6,7 +6,7 @@
         <a class="py-2 d-none d-md-inline-block" href="{% url 'sales:home' %}">Home</a>
         <a class="py-2 d-none d-md-inline-block" href="{% url 'sales:latest' %}">Latest Purchases</a>
         <a class="py-2 d-none d-md-inline-block" href="{% url 'sales:create_store' %}">Create Store</a>
-        <a class="py-2 d-none d-md-inline-block" href="#">View Stores</a>
+        <a class="py-2 d-none d-md-inline-block" href="{% url 'sales:stores' %}">View Stores</a>
         {% if not request.user.is_authenticated %}
         <a class="py-2 d-none d-md-inline-block" href="{% url 'auth:signup' %}">Sign Up</a>
         <a class="py-2 d-none d-md-inline-block" href="{% url 'auth:login' %}">Log In</a>
