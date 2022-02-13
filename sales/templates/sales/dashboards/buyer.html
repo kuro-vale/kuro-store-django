@@ -8,17 +8,19 @@
                 <tr>
                   <th>#</th>
                   <th>Item</th>
+                  <th>Date</th>
                   <th>Price</th>
                   <th>Store</th>
                 </tr>
               </thead>
               <tbody>
-              {% for item in buyer.item_set.all reversed %}
+              {% for purchase in buyer.purchase_set.all reversed %}
               <tr>
                 <td>{{ forloop.revcounter }}</td>
-                <td>{{ item.name }}</td>
-                <td>${{ item.price }}</td>
-                <td><a href="#" class="link-dark">{{ item.store_id.name }}</a> </td>
+                <td>{{ purchase.item_id.name }}</td>
+                <td>{{ purchase.date }}</td>
+                <td>${{ purchase.item_id.price }}</td>
+                <td><a href="#" class="link-dark">{{ purchase.item_id.store_id.name }}</a> </td>
               </tr>
               {% endfor %}
               </tbody>

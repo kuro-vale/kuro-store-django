@@ -4,7 +4,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 # App
-from sales.models import Store, Item, Buyer
+from django.utils import timezone
+
+from sales.models import Store, Item, Buyer, Purchase
 
 
 # Home Views
@@ -24,30 +26,29 @@ def home(request):
 
 def checkout(request, item_id):
     item = get_object_or_404(Item, pk=item_id)
+    if request.method == 'POST':
+        try:
+            buyer = Buyer.objects.get(username=request.POST['username'])
+        except Buyer.DoesNotExist:
+            new_buyer = Buyer(username=request.POST['username'])
+            new_buyer.save()
+            purchase = Purchase(buyer_id=new_buyer, item_id=item, date=timezone.now())
+            purchase.save()
+            messages.add_message(request, messages.INFO, f'Successfully bought {item.name}')
+            return HttpResponseRedirect(reverse('sales:home'))
+        else:
+            purchase = Purchase(buyer_id=buyer, item_id=item, date=timezone.now())
+            purchase.save()
+            messages.add_message(request, messages.INFO, f'Successfully bought {item.name}')
+            return HttpResponseRedirect(reverse('sales:home'))
     return render(request, 'sales/checkout.html', {'item': item})
-
-
-def buy(request, item_id):
-    item = get_object_or_404(Item, pk=item_id)
-    try:
-        buyer = Buyer.objects.get(username=request.POST['username'])
-    except Buyer.DoesNotExist:
-        new_buyer = Buyer(username=request.POST['username'])
-        new_buyer.save()
-        item.buyers.add(new_buyer)
-        messages.add_message(request, messages.INFO, f'Successfully bought {item.name}')
-        return HttpResponseRedirect(reverse('sales:home'))
-    else:
-        item.buyers.add(buyer)
-        messages.add_message(request, messages.INFO, f'Successfully bought {item.name}')
-        return HttpResponseRedirect(reverse('sales:home'))
 
 
 # Dashboard views
 
 def latest_purchases(request):
-    buyers = Buyer.objects.all()
-    return render(request, 'sales/dashboards/latest.html', {'buyers': buyers})
+    purchases = Purchase.objects.all()
+    return render(request, 'sales/dashboards/latest.html', {'purchases': purchases})
 
 
 def buyer_purchases(request, buyer_id):

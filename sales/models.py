@@ -24,7 +24,15 @@ class Item(models.Model):
     description = models.TextField(default='', blank=True, max_length=60)
     image = models.URLField(max_length=200)
     price = models.PositiveIntegerField(default=0)
-    buyers = models.ManyToManyField(Buyer)
 
     def __str__(self):
         return f'{self.name}'
+
+
+class Purchase(models.Model):
+    buyer_id = models.ForeignKey(Buyer, on_delete=models.CASCADE)
+    item_id = models.ForeignKey(Item, on_delete=models.CASCADE)
+    date = models.DateField('Date Purchased')
+
+    def __str__(self):
+        return f'Purchase of {self.item_id.name} by {self.buyer_id.username}'

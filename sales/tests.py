@@ -3,25 +3,24 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 # App
-from sales.models import Buyer, Item
+from django.utils import timezone
+
+from sales.models import Buyer, Purchase
 
 
 # Model Tests
 
 class ItemModelTests(TestCase):
-    def test_item_have_1_store_and_multiple_buyers(self):
+    def test_models_workflow(self):
         owner = User()
         owner.save()
         store = owner.store_set.create()
         item = store.item_set.create()
-        buyer1 = Buyer()
-        buyer1.save()
-        buyer2 = Buyer()
-        buyer2.save()
-        item.buyers.add(buyer1, buyer2)
-        self.assertQuerysetEqual(store.item_set.all(), Item.objects.all())
-        self.assertQuerysetEqual(buyer1.item_set.all(), Item.objects.all())
-        self.assertEqual(item.buyers.get(pk=buyer2.pk), Buyer.objects.get(pk=buyer2.pk))
+        buyer = Buyer()
+        buyer.save()
+        purchase = Purchase(buyer_id=buyer, item_id=item, date=timezone.now())
+        purchase.save()
+        self.assertEqual(store.item_set.get(pk=item.id), buyer.purchase_set.get(pk=1).item_id)
 
 
 # View Tests
