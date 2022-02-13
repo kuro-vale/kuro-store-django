@@ -6,6 +6,6 @@ from owners import views
 app_name = 'auth'
 urlpatterns = [
     path('logout/', views.logout_owner, name='logout'),
-    path('login/', views.render_login, name='login'),
-    path('login_owner/', views.login_owner, name='login_owner')
+    path('login/', views.login_view, name='login'),
+    path('signup/', views.signup_view, name='signup'),
 ]

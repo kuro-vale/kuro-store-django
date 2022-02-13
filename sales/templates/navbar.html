@@ -7,7 +7,7 @@
         <a class="py-2 d-none d-md-inline-block" href="{% url 'sales:latest' %}">Latest Purchases</a>
         <a class="py-2 d-none d-md-inline-block" href="#"></a>
         {% if not request.user.is_authenticated %}
-        <a class="py-2 d-none d-md-inline-block" href="">Sign Up</a>
+        <a class="py-2 d-none d-md-inline-block" href="{% url 'auth:signup' %}">Sign Up</a>
         <a class="py-2 d-none d-md-inline-block" href="{% url 'auth:login' %}">Log In</a>
         {% endif %}
         {% if request.user.is_authenticated %}
