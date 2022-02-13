@@ -9,7 +9,7 @@
           <div class="col-md-5 p-lg-5 mx-auto my-5">
             <h1 class="display-4 font-weight-normal">{{ store.name }}</h1>
             <p class="lead font-weight-normal">{{ store.description|linebreaksbr }}</p>
-            <a class="btn btn-outline-secondary" href="#">Start Shopping</a>
+            <a class="btn btn-outline-secondary" href="{% url 'sales:user_store' store.id %}">Start Shopping</a>
           </div>
           <div class="product-device box-shadow d-none d-md-block"></div>
           <div class="product-device product-device-2 box-shadow d-none d-md-block"></div>

@@ -74,6 +74,12 @@ def view_stores(request):
     return render(request, 'sales/stores.html', {'stores': stores})
 
 
+def user_store(request, store_id):
+    store = Store.objects.get(pk=store_id)
+    items = _get_pair_items(store.id)
+    return render(request, 'sales/home.html', {'pair_items': items, 'store': store})
+
+
 # Private Methods
 
 def _get_pair_items(store_pk):

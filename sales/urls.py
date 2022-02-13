@@ -12,4 +12,5 @@ urlpatterns = [
     path('dashboard/buyer/<int:buyer_id>', views.buyer_purchases, name='buyer_purchases'),
     path('create-store', views.create_store, name='create_store'),
     path('stores', views.view_stores, name='stores'),
+    path('stores/<int:store_id>', views.user_store, name='user_store'),
 ]

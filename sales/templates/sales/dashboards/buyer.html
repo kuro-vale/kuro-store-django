@@ -20,7 +20,7 @@
                 <td>{{ purchase.item_id.name }}</td>
                 <td>{{ purchase.date }}</td>
                 <td>${{ purchase.item_id.price }}</td>
-                <td><a href="#" class="link-dark">{{ purchase.item_id.store_id.name }}</a> </td>
+                <td><a href="{% url 'sales:user_store' purchase.item_id.store_id.id %}" class="link-dark">{{ purchase.item_id.store_id.name }}</a> </td>
               </tr>
               {% endfor %}
               </tbody>
