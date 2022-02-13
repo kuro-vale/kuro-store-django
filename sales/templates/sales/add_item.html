@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+      <div class="py-5 text-center">
+        <h2>Add Item</h2>
+      </div>
+        <div class="col-md-15 order-md-1 text-center">
+          <h4 class="mb-3">Item Information</h4>
+          <form class="needs-validation" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="item-name">Item Name</label>
+              <div class="input-group">
+                <input type="text" name="item-name" class="form-control" id="item-name" placeholder="Pandora Box" required>
+                <div class="invalid-feedback" style="width: 100%;">
+                  An item name is required.
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="description">Item Description</label>
+              <input type="text" name="description" class="form-control" id="description" placeholder="Do Not Open">
+              <div class="invalid-feedback">
+                A description is required.
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="image">Item Image</label>
+              <input type="url" name="image" class="form-control" id="image" placeholder="https://www.example.com/">
+              <div class="invalid-feedback">
+                An image url is required.
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="price">Item Price</label>
+              <input type="number" min="0" name="price" class="form-control" id="price" value="0">
+              <div class="invalid-feedback">
+                A price is required.
+              </div>
+            </div>
+            <hr class="mb-4">
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Add Item</button>
+          </form>
+        </div>
+</div>
+{% endblock %}

@@ -10,6 +10,23 @@
       <div class="product-device box-shadow d-none d-md-block"></div>
       <div class="product-device product-device-2 box-shadow d-none d-md-block"></div>
 </div>
+{% if request.user == store.owner %}
+    {% if not pair_items %}
+        <div class="bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+            <div class="my-3 py-3">
+                <h2 class="display-5">Your Store Have No Items （；´д｀）ゞ</h2>
+                <a class="btn btn-light" href="{% url 'sales:add_item' store.id %}">Add New Item</a>
+            </div>
+        </div>
+    {% else %}
+        <div class="bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+            <div class="my-3 py-3">
+                <h2 class="display-5">Add More Items To Your Store</h2>
+                <a class="btn btn-light" href="{% url 'sales:add_item' store.id %}">Add New Item</a>
+            </div>
+        </div>
+    {% endif %}
+{% endif %}
 <section id="shop-zone">
 {% for pair in pair_items %}
     {% if not forloop.counter|divisibleby:"2" %}

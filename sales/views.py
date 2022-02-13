@@ -4,9 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
-# App
 from django.utils import timezone
-
+# App
 from sales.models import Store, Item, Buyer, Purchase
 
 
@@ -71,13 +70,29 @@ def create_store(request):
 
 def view_stores(request):
     stores = Store.objects.filter(pk__gt=1)
-    return render(request, 'sales/stores.html', {'stores': stores})
+    store_scope = 'User Stores'
+    return render(request, 'sales/stores.html', {'stores': stores, 'store_scope': store_scope})
 
 
 def user_store(request, store_id):
-    store = Store.objects.get(pk=store_id)
+    store = get_object_or_404(Store, pk=store_id)
     items = _get_pair_items(store.id)
     return render(request, 'sales/home.html', {'pair_items': items, 'store': store})
+
+
+@login_required(login_url='auth/login')
+def add_item(request, store_id):
+    store = get_object_or_404(Store, pk=store_id)
+    if request.method == 'POST':
+        name = request.POST['item-name']
+        description = request.POST['description']
+        image = request.POST['image']
+        price = request.POST['price']
+        item = Item(store_id=store, name=name, description=description, image=image, price=price)
+        item.save()
+        messages.add_message(request, messages.SUCCESS, f'{item.name} Successfully Added')
+        return HttpResponseRedirect(reverse('sales:home'))
+    return render(request, 'sales/add_item.html')
 
 
 # Private Methods
