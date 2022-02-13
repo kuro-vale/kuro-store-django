@@ -1,5 +1,6 @@
 # Django
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
@@ -54,6 +55,22 @@ def latest_purchases(request):
 def buyer_purchases(request, buyer_id):
     buyer = get_object_or_404(Buyer, pk=buyer_id)
     return render(request, 'sales/dashboards/buyer.html', {'buyer': buyer})
+
+
+# Store Views
+
+@login_required(login_url='auth/login')
+def create_store(request):
+    if request.method == 'POST':
+        store = Store(name=request.POST['store-name'], description=request.POST['description'], owner=request.user)
+        store.save()
+        messages.add_message(request, messages.SUCCESS, f'{store.name} Successfully Created')
+        return HttpResponseRedirect(reverse('sales:home'))
+    return render(request, 'sales/create_store.html')
+
+
+def view_store(request):
+    pass
 
 
 # Private Methods

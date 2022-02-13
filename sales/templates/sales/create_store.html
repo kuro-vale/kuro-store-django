@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+      <div class="py-5 text-center">
+        <h2>Create A New Store</h2>
+        <p class="lead">DO NOT ENTER YOUR REAL INFORMATION</p>
+      </div>
+        <div class="col-md-15 order-md-1 text-center">
+          <h4 class="mb-3">Store Information</h4>
+          <form class="needs-validation" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="store-name">Store Name</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">@</span>
+                </div>
+                <input type="text" name="store-name" class="form-control" id="store-name" placeholder="Kuro Stores" required>
+                <div class="invalid-feedback" style="width: 100%;">
+                  Your username is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="description">Store Description</label>
+              <input type="text" name="description" class="form-control" id="description" placeholder="The Store Of The Future">
+              <div class="invalid-feedback">
+                A description is required
+              </div>
+            </div>
+            <hr class="mb-4">
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Create Store</button>
+          </form>
+        </div>
+</div>
+{% endblock %}
