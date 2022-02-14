@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
       <div class="py-5 text-center">
-        <h2>Add Item</h2>
+        <h2>{{ view_name }}</h2>
       </div>
         <div class="col-md-15 order-md-1 text-center">
           <h4 class="mb-3">Item Information</h4>
@@ -20,27 +20,27 @@
             </div>
             <div class="mb-3">
               <label for="description">Item Description</label>
-              <input type="text" name="description" class="form-control" id="description" placeholder="Do Not Open">
+              <input type="text" name="description" class="form-control" id="description" placeholder="Do Not Open" required>
               <div class="invalid-feedback">
                 A description is required.
               </div>
             </div>
             <div class="mb-3">
               <label for="image">Item Image</label>
-              <input type="url" name="image" class="form-control" id="image" placeholder="https://www.example.com/">
+              <input type="url" name="image" class="form-control" id="image" placeholder="https://www.example.com/" required>
               <div class="invalid-feedback">
                 An image url is required.
               </div>
             </div>
             <div class="mb-3">
               <label for="price">Item Price</label>
-              <input type="number" min="0" name="price" class="form-control" id="price" value="0">
+              <input type="number" min="0" name="price" class="form-control" id="price" value="0" required>
               <div class="invalid-feedback">
                 A price is required.
               </div>
             </div>
             <hr class="mb-4">
-            <button class="btn btn-primary btn-lg btn-block" type="submit">Add Item</button>
+            <button class="btn btn-primary btn-lg btn-block" type="submit">{{ view_name }}</button>
           </form>
         </div>
 </div>

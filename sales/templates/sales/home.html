@@ -35,7 +35,15 @@
                 {% if not forloop.counter|divisibleby:"2" %}
                     <div class="bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
                         <div class="my-3 py-3">
-                            <h2 class="display-5">{{ item.name }} | ${{ item.price }}</h2>
+                            <h2 class="display-5">{{ item.name }} | ${{ item.price }}
+                                {% if request.user == store.owner %}
+                                    <a class="dropdown-toggle" style="color:inherit" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                                        <a class="dropdown-item" href="{% url 'sales:edit_item' item.id %}">Edit</a>
+                                        <a class="dropdown-item" href="{% url 'sales:delete_item' item.id %}">Delete</a>
+                                    </div>
+                                {% endif %}
+                            </h2>
                             <p class="lead">{{ item.description }}</p>
                             <a class="btn btn-light" href="{% url 'sales:checkout' item.id %}">Buy Now</a>
                         </div>
@@ -46,7 +54,15 @@
                 {% else %}
                     <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
                         <div class="my-3 p-3">
-                            <h2 class="display-5">{{ item.name }} | ${{ item.price }}</h2>
+                            <h2 class="display-5">{{ item.name }} | ${{ item.price }}
+                                {% if request.user == store.owner %}
+                                    <a class="dropdown-toggle" style="color:inherit" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                                        <a class="dropdown-item" href="{% url 'sales:edit_item' item.id %}">Edit</a>
+                                        <a class="dropdown-item" href="{% url 'sales:delete_item' item.id %}">Delete</a>
+                                    </div>
+                                {% endif %}
+                            </h2>
                             <p class="lead">{{ item.description }}</p>
                             <a class="btn btn-dark" href="{% url 'sales:checkout' item.id %}">Buy Now</a>
                         </div>
@@ -63,7 +79,15 @@
                 {% if not forloop.counter|divisibleby:"2" %}
                     <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
                         <div class="my-3 p-3">
-                            <h2 class="display-5">{{ item.name }} | ${{ item.price }}</h2>
+                            <h2 class="display-5">{{ item.name }} | ${{ item.price }}
+                                {% if request.user == store.owner %}
+                                    <a class="dropdown-toggle" style="color:inherit" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                                        <a class="dropdown-item" href="{% url 'sales:edit_item' item.id %}">Edit</a>
+                                        <a class="dropdown-item" href="{% url 'sales:delete_item' item.id %}">Delete</a>
+                                    </div>
+                                {% endif %}
+                            </h2>
                             <p class="lead">{{ item.description }}</p>
                             <a class="btn btn-dark" href="{% url 'sales:checkout' item.id %}">Buy Now</a>
                         </div>
@@ -74,7 +98,15 @@
                 {% else %}
                   <div class="bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
                       <div class="my-3 py-3">
-                        <h2 class="display-5">{{ item.name }} | ${{ item.price }}</h2>
+                        <h2 class="display-5">{{ item.name }} | ${{ item.price }}
+                            {% if request.user == store.owner %}
+                                <a class="dropdown-toggle" style="color:inherit" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                                    <a class="dropdown-item" href="{% url 'sales:edit_item' item.id %}">Edit</a>
+                                    <a class="dropdown-item" href="{% url 'sales:delete_item' item.id %}">Delete</a>
+                                </div>
+                            {% endif %}
+                        </h2>
                         <p class="lead">{{ item.description }}</p>
                         <a class="btn btn-light" href="{% url 'sales:checkout' item.id %}">Buy Now</a>
                       </div>

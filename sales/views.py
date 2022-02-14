@@ -60,18 +60,19 @@ def buyer_purchases(request, buyer_id):
 
 @login_required(login_url='auth/login')
 def create_store(request):
+    view_name = 'Create A New Store'
     if request.method == 'POST':
         store = Store(name=request.POST['store-name'], description=request.POST['description'], owner=request.user)
         store.save()
         messages.add_message(request, messages.SUCCESS, f'{store.name} Successfully Created')
         return HttpResponseRedirect(reverse('sales:home'))
-    return render(request, 'sales/create_store.html')
+    return render(request, 'sales/create_store.html', {'view_name': view_name})
 
 
 def view_stores(request):
+    view_name = 'User Stores'
     stores = Store.objects.filter(pk__gt=1)
-    store_scope = 'User Stores'
-    return render(request, 'sales/stores.html', {'stores': stores, 'store_scope': store_scope})
+    return render(request, 'sales/stores.html', {'stores': stores, 'view_name': view_name})
 
 
 def user_store(request, store_id):
@@ -80,9 +81,14 @@ def user_store(request, store_id):
     return render(request, 'sales/home.html', {'pair_items': items, 'store': store})
 
 
+# Item Views
+
 @login_required(login_url='auth/login')
 def add_item(request, store_id):
+    view_name = 'Add Item'
     store = get_object_or_404(Store, pk=store_id)
+    if not store.owner == request.user:
+        return HttpResponseRedirect(reverse('sales:home'))
     if request.method == 'POST':
         name = request.POST['item-name']
         description = request.POST['description']
@@ -92,7 +98,34 @@ def add_item(request, store_id):
         item.save()
         messages.add_message(request, messages.SUCCESS, f'{item.name} Successfully Added')
         return HttpResponseRedirect(reverse('sales:home'))
-    return render(request, 'sales/add_item.html')
+    return render(request, 'sales/add_item.html', {'view_name': view_name})
+
+
+@login_required(login_url='auth/login')
+def edit_item(request, item_id):
+    view_name = 'Edit Item'
+    item = get_object_or_404(Item, pk=item_id)
+    if not item.store_id.owner == request.user:
+        return HttpResponseRedirect(reverse('sales:home'))
+    if request.method == 'POST':
+        item.name = request.POST['item-name']
+        item.description = request.POST['description']
+        item.image = request.POST['image']
+        item.price = request.POST['price']
+        item.save()
+        messages.add_message(request, messages.SUCCESS, f'{item.name}Successfully Updated')
+        return HttpResponseRedirect(reverse('sales:home'))
+    return render(request, 'sales/add_item.html', {'view_name': view_name})
+
+
+@login_required(login_url='auth/login')
+def delete_item(request, item_id):
+    item = get_object_or_404(Item, pk=item_id)
+    if not item.store_id.owner == request.user:
+        return HttpResponseRedirect(reverse('sales:home'))
+    item.delete()
+    messages.add_message(request, messages.WARNING, f'{item.name} Was Deleted')
+    return HttpResponseRedirect(reverse('sales:home'))
 
 
 # Private Methods

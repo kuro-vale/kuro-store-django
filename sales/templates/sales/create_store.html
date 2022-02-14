@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
       <div class="py-5 text-center">
-        <h2>Create A New Store</h2>
+        <h2>{{ view_name }}</h2>
         <p class="lead">DO NOT ENTER YOUR REAL INFORMATION</p>
       </div>
         <div class="col-md-15 order-md-1 text-center">
@@ -25,13 +25,13 @@
 
             <div class="mb-3">
               <label for="description">Store Description</label>
-              <input type="text" name="description" class="form-control" id="description" placeholder="The Store Of The Future">
+              <input type="text" name="description" class="form-control" id="description" placeholder="The Store Of The Future" required>
               <div class="invalid-feedback">
                 A description is required
               </div>
             </div>
             <hr class="mb-4">
-            <button class="btn btn-primary btn-lg btn-block" type="submit">Create Store</button>
+            <button class="btn btn-primary btn-lg btn-block" type="submit">{{ view_name }}</button>
           </form>
         </div>
 </div>
