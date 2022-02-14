@@ -7,7 +7,15 @@
 {% for store in stores %}
     <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
           <div class="col-md-5 p-lg-5 mx-auto my-5">
-            <h1 class="display-4 font-weight-normal">{{ store.name }}</h1>
+            <h1 class="display-4 font-weight-normal">{{ store.name }}
+                {% if request.user == store.owner %}
+                    <a class="dropdown-toggle" style="color:inherit" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="{% url 'sales:edit_store' store.id %}">Edit</a>
+                        <a class="dropdown-item" href="{% url 'sales:delete_store' store.id %}">Delete</a>
+                    </div>
+                {% endif %}
+            </h1>
             <p class="lead font-weight-normal">{{ store.description|linebreaksbr }}</p>
             <a class="btn btn-outline-secondary" href="{% url 'sales:user_store' store.id %}">Start Shopping</a>
           </div>

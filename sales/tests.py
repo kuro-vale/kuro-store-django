@@ -2,9 +2,8 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
-# App
 from django.utils import timezone
-
+# App
 from sales.models import Buyer, Purchase
 
 
@@ -26,11 +25,6 @@ class ItemModelTests(TestCase):
 # View Tests
 
 class HomeViewsTests(TestCase):
-    def test_index_redirect_to_home(self):
-        response = self.client.get(reverse('sales:index'))
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(response.url, '/home/')
-
     def test_root_items_got_render_in_home(self):
         owner = User()
         owner.save()

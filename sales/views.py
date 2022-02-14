@@ -17,6 +17,11 @@ def index(request):
 
 
 def home(request):
+    if request.user.is_authenticated:
+        if not request.user.store_set.all():
+            pass
+        else:
+            return HttpResponseRedirect(reverse('sales:user_home'))
     root_store = Store.objects.get(pk=1)
     root_items = _get_pair_items(root_store.id)
     return render(request, 'sales/home.html', {'pair_items': root_items, 'store': root_store})
@@ -125,6 +130,40 @@ def delete_item(request, item_id):
         return HttpResponseRedirect(reverse('sales:home'))
     item.delete()
     messages.add_message(request, messages.WARNING, f'{item.name} Was Deleted')
+    return HttpResponseRedirect(reverse('sales:home'))
+
+
+# User Views
+
+@login_required(login_url='auth/login')
+def user_home(request):
+    view_name = 'Your Stores'
+    stores = Store.objects.filter(owner=request.user)
+    return render(request, 'sales/stores.html', {'stores': stores, 'view_name': view_name})
+
+
+@login_required(login_url='auth/login')
+def edit_store(request, store_id):
+    view_name = 'Edit Store'
+    store = get_object_or_404(Store, pk=store_id)
+    if not store.owner == request.user:
+        return HttpResponseRedirect(reverse('sales:home'))
+    if request.method == 'POST':
+        store.name = request.POST['store-name']
+        store.description = request.POST['description']
+        store.save()
+        messages.add_message(request, messages.SUCCESS, f'{store.name} Successfully Edited')
+        return HttpResponseRedirect(reverse('sales:home'))
+    return render(request, 'sales/create_store.html', {'view_name': view_name})
+
+
+@login_required(login_url='auth/login')
+def delete_store(request, store_id):
+    store = get_object_or_404(Store, pk=store_id)
+    if not store.owner == request.user:
+        return HttpResponseRedirect(reverse('sales:home'))
+    store.delete()
+    messages.add_message(request, messages.WARNING, f'{store.name} Was Deleted')
     return HttpResponseRedirect(reverse('sales:home'))
 
 
