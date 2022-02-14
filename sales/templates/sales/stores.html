@@ -11,6 +11,7 @@
                 {% if request.user == store.owner %}
                     <a class="dropdown-toggle" style="color:inherit" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="{% url 'sales:store_purchases' store.id %}">Store Latest Sales</a>
                         <a class="dropdown-item" href="{% url 'sales:edit_store' store.id %}">Edit</a>
                         <a class="dropdown-item" href="{% url 'sales:delete_store' store.id %}">Delete</a>
                     </div>

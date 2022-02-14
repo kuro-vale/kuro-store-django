@@ -61,6 +61,15 @@ def buyer_purchases(request, buyer_id):
     return render(request, 'sales/dashboards/buyer.html', {'buyer': buyer})
 
 
+def store_purchases(request, store_id):
+    store = get_object_or_404(Store, pk=store_id)
+    purchases = None
+    for item in store.item_set.all():
+        purchases = Purchase.objects.filter(item_id=item)
+        break
+    return render(request, 'sales/dashboards/store.html', {'store': store, 'purchases': purchases})
+
+
 # Store Views
 
 @login_required(login_url='auth/login')
