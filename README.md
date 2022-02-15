@@ -2,6 +2,8 @@
 
 Web App to create stores, sell and buy (not real purchases)
 
+Visit the [deployment](https://kuro-store-django.azurewebsites.net/home) of the app
+
 ## Prerequisites
 **Making venv**
 

@@ -72,7 +72,7 @@ def store_purchases(request, store_id):
 
 # Store Views
 
-@login_required(login_url='auth/login')
+@login_required(login_url='/auth/login')
 def create_store(request):
     view_name = 'Create A New Store'
     if request.method == 'POST':
@@ -97,7 +97,7 @@ def user_store(request, store_id):
 
 # Item Views
 
-@login_required(login_url='auth/login')
+@login_required(login_url='/auth/login')
 def add_item(request, store_id):
     view_name = 'Add Item'
     store = get_object_or_404(Store, pk=store_id)
@@ -115,7 +115,7 @@ def add_item(request, store_id):
     return render(request, 'sales/add_item.html', {'view_name': view_name})
 
 
-@login_required(login_url='auth/login')
+@login_required(login_url='/auth/login')
 def edit_item(request, item_id):
     view_name = 'Edit Item'
     item = get_object_or_404(Item, pk=item_id)
@@ -132,7 +132,7 @@ def edit_item(request, item_id):
     return render(request, 'sales/add_item.html', {'view_name': view_name})
 
 
-@login_required(login_url='auth/login')
+@login_required(login_url='/auth/login')
 def delete_item(request, item_id):
     item = get_object_or_404(Item, pk=item_id)
     if not item.store_id.owner == request.user:
@@ -144,14 +144,14 @@ def delete_item(request, item_id):
 
 # User Views
 
-@login_required(login_url='auth/login')
+@login_required(login_url='/auth/login')
 def user_home(request):
     view_name = 'Your Stores'
     stores = Store.objects.filter(owner=request.user)
     return render(request, 'sales/stores.html', {'stores': stores, 'view_name': view_name})
 
 
-@login_required(login_url='auth/login')
+@login_required(login_url='/auth/login')
 def edit_store(request, store_id):
     view_name = 'Edit Store'
     store = get_object_or_404(Store, pk=store_id)
@@ -166,7 +166,7 @@ def edit_store(request, store_id):
     return render(request, 'sales/create_store.html', {'view_name': view_name})
 
 
-@login_required(login_url='auth/login')
+@login_required(login_url='/auth/login')
 def delete_store(request, store_id):
     store = get_object_or_404(Store, pk=store_id)
     if not store.owner == request.user:

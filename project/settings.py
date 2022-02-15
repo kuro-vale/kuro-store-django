@@ -25,6 +25,7 @@ SECRET_KEY = 'django-insecure-%@mrrvg_*duqs359u-y*2czrdq=oi$e!27e2@-1q!^d7&w^1%f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+CSRF_TRUSTED_ORIGINS = ['https://kuro-store-django.azurewebsites.net']
 ALLOWED_HOSTS = ['*']
 
 
