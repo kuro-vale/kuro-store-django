@@ -2,6 +2,10 @@
 
 Web App to create stores, sell and buy (not real purchases)
 
+### Docker Image
+
+You can run this project with the [docker image](https://hub.docker.com/r/kurovale/kuro-store) of this project
+
 ## Prerequisites
 **Making venv**
 
@@ -33,11 +37,3 @@ python3 manage.py runserver
 ```
 
 Visit 127.0.0.1:8000/ to see the web app
-
-## Screenshots
-### Home page
-[![image](https://cdn.discordapp.com/attachments/936400336409755720/942921388140920902/unknown.png)](https://kuro-store-django.azurewebsites.net/home)
-### User Stores
-[![image](https://cdn.discordapp.com/attachments/936400336409755720/942921764898500689/unknown.png)](https://kuro-store-django.azurewebsites.net/home)
-### Dashboard
-[![image](https://cdn.discordapp.com/attachments/936400336409755720/942921974106173491/unknown.png)](https://kuro-store-django.azurewebsites.net/home)
